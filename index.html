@@ -23,34 +23,28 @@
       <div data-view="entry-form">
         <form class="entry-form">
           <div class="row">
+            <h2>New Entry</h2>
+          </div>
+          <div class="row">
             <div class="column-half">
-              <label for="image-input" class="image-drop">New Entry</label>
-              <input
-                required
-                type="file"
-                name="image"
-                id="image-input"
-                accept="image/png, image/jpeg" />
               <div id="placeholder">
-                <img src="/images/placeholder-image-square.jpg" />
+                <img
+                  class="form-image"
+                  src="/images/placeholder-image-square.jpg" />
               </div>
             </div>
             <div class="column=half">
               <div class="row">
-                <label for="title">Title</label>
+                <label for="image-title">Title</label>
               </div>
               <div class="row">
-                <input
-                  required
-                  type="text"
-                  id="image-title"
-                  name="image-title" />
+                <input required type="text" id="title" name="image-title" />
               </div>
               <div class="row">
                 <label for="photo-url">Photo URL</label>
               </div>
               <div class="row">
-                <input required type="text" id="photo-url" name="photo url" />
+                <input required type="text" id="url" name="photo url" />
               </div>
             </div>
           </div>
