@@ -4,7 +4,7 @@ body {
 }
 
 textarea {
-  min-width: 50%;
+  min-width: 80%;
 }
 
 button {
@@ -37,4 +37,11 @@ button {
 #placeholder img {
   max-width: 100%;
   max-height: 80%;
+}
+
+.row.button {
+  display: flex;
+  justify-content: end;
+  flex-wrap: wrap;
+  max-width: 80%;
 }
