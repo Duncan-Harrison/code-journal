@@ -1,28 +1,19 @@
+'use strict';
 const data = {
   view: 'entry-form',
-  entries: [] as object[],
+  entries: [],
   editing: null,
   nextEntryId: 1,
 };
-
-interface Entry {
-  title: string;
-  url: string;
-  notes: string;
-}
-
-const blogPosts: Entry[] = readPosts();
-
-function readPosts(): Entry[] {
+const blogPosts = readPosts();
+function readPosts() {
   const postsJSON = localStorage.getItem('posts storage');
   if (postsJSON) {
     return JSON.parse(postsJSON);
   }
   return [];
 }
-
-function entryToData(): any {
+function entryToData() {
   data.entries = blogPosts;
 }
-
 entryToData();
