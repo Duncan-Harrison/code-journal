@@ -1,28 +1,35 @@
-const data = {
-  view: 'entry-form',
-  entries: [] as object[],
-  editing: null,
-  nextEntryId: 1,
-};
-
 interface Entry {
   title: string;
   url: string;
   notes: string;
+  entryID: number;
 }
 
-const blogPosts: Entry[] = readPosts();
+interface Data {
+  view: 'entries' | 'entry-form';
+  entries: Entry[];
+  editing: null;
+  nextEntryId: number;
+}
 
-function readPosts(): Entry[] {
-  const postsJSON = localStorage.getItem('posts storage');
-  if (postsJSON) {
-    return JSON.parse(postsJSON);
+let data: Data = {
+  view: 'entry-form',
+  entries: [] as Entry[],
+  editing: null,
+  nextEntryId: 1,
+};
+
+function writeData(): any {
+  const postsJSON = JSON.stringify(data);
+  localStorage.setItem('posts storage', postsJSON);
+}
+
+data = readData();
+
+function readData(): Data {
+  const dataJSON = localStorage.getItem('posts storage');
+  if (dataJSON) {
+    return JSON.parse(dataJSON);
   }
-  return [];
+  return data;
 }
-
-function entryToData(): any {
-  data.entries = blogPosts;
-}
-
-entryToData();
