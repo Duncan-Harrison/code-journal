@@ -6,13 +6,11 @@
   max-width: 575px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .row {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 

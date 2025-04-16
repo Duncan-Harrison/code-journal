@@ -1,19 +1,19 @@
 'use strict';
-const data = {
+let data = {
   view: 'entry-form',
   entries: [],
   editing: null,
   nextEntryId: 1,
 };
-const blogPosts = readPosts();
-function readPosts() {
-  const postsJSON = localStorage.getItem('posts storage');
-  if (postsJSON) {
-    return JSON.parse(postsJSON);
+function writeData() {
+  const postsJSON = JSON.stringify(data);
+  localStorage.setItem('posts storage', postsJSON);
+}
+data = readData();
+function readData() {
+  const dataJSON = localStorage.getItem('posts storage');
+  if (dataJSON) {
+    return JSON.parse(dataJSON);
   }
-  return [];
+  return data;
 }
-function entryToData() {
-  data.entries = blogPosts;
-}
-entryToData();
