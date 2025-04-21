@@ -26,7 +26,7 @@
       <div data-view="entry-form" id="data-form-view">
         <form class="entry-form">
           <div class="column-full">
-            <h2>New Entry</h2>
+            <h2 id="form-field-title">New Entry</h2>
           </div>
           <div class="row">
             <div class="column-half">
@@ -43,7 +43,7 @@
               </div>
               <div><label for="url">Photo URL</label></div>
               <div>
-                <input required type="text" id="url" name="photo url" />
+                <input required type="text" id="url" name="photo-url" />
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
             <label for="notes">Notes</label>
             <textarea required id="notes" name="notes"></textarea>
             <div class="row button">
-              <button type="submit">SAVE</button>
+              <button id="form-button" type="submit">SAVE</button>
             </div>
           </div>
         </form>
