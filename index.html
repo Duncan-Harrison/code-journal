@@ -51,6 +51,18 @@
             <label for="notes">Notes</label>
             <textarea required id="notes" name="notes"></textarea>
             <div class="row button">
+              <div style="width: 50%">
+                <button type="button" id="form-delete" class="hidden">
+                  Delete Entry
+                </button>
+                <dialog>
+                  <p>Are you sure you want to delete this entry?</p>
+                  <div style="display: flex; justify-content: space-around">
+                    <button type="button" id="delete-cancel">Cancel</button>
+                    <button type="button" id="delete-confirm">Confirm</button>
+                  </div>
+                </dialog>
+              </div>
               <button id="form-button" type="submit">SAVE</button>
             </div>
           </div>

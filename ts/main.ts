@@ -32,10 +32,15 @@ const $entriesTab = document.querySelector('#entries-tab');
 if (!$entriesTab) throw new Error('$entriesTab query failed');
 
 const $formTab = document.querySelector('#form-tab');
-if (!$formTab) throw new Error('$entriesTab query failed');
+if (!$formTab) throw new Error('$formTab query failed');
 
 const $formFieldTitle = document.getElementById('form-field-title');
 if (!$formFieldTitle) throw new Error('$formFieldTitle query failed');
+
+const $deleteButton = document.querySelector('#form-delete');
+if (!$deleteButton) throw new Error('$deleteButton query failed');
+
+const $dialog = document.querySelector('dialog');
 
 $photoURL.addEventListener('input', (event: Event) => {
   const $target = event.target as HTMLInputElement;
@@ -70,7 +75,6 @@ $entryForm.addEventListener('submit', (event: Event) => {
     update.notes = newEntry.notes;
     const correctEntry = renderEntry(update);
     const oldLi = correctEntry.closest('[data-entry-id]') as HTMLLIElement;
-    console.log('oldLi: ', oldLi);
     if (oldLi) {
       oldLi.replaceWith(correctEntry);
       location.reload();
@@ -134,6 +138,16 @@ function toggleNoEntries(): void {
   }
 }
 
+function toggleDelete(): void {
+  if ($deleteButton != null) {
+    if (data.editing === null) {
+      $deleteButton.className = 'hidden';
+    } else {
+      $deleteButton.className = '';
+    }
+  }
+}
+
 function viewSwap(view: Data['view']): void {
   if (view === 'entries' && $dataFormView != null && $dataView != null) {
     $dataView.className = '';
@@ -146,12 +160,17 @@ function viewSwap(view: Data['view']): void {
   ) {
     $dataView.className = 'hidden';
     $dataFormView.className = '';
+    toggleDelete();
   }
 }
 
 $entriesTab.addEventListener('click', (event: Event) => {
   const eventTarget = event.target;
   if (eventTarget === $entriesTab) {
+    const $formElements = $entryForm.elements as FormElements;
+    $formElements.title.value = '';
+    $formElements.url.value = '';
+    $formElements.notes.value = '';
     viewSwap('entries');
   }
 });
@@ -177,30 +196,69 @@ function findEntry(entryId: number): Entry | null {
 
 function prePopulate(entry: Entry): void {
   const $formElements = $entryForm.elements as FormElements;
-  console.log($formElements);
   $formElements.title.value = entry.title;
   $formElements.url.value = entry.url;
   $formElements.notes.value = entry.notes;
+  toggleDelete();
 }
 
 $entriesList.addEventListener('click', (event: Event) => {
   const target = event.target as HTMLLIElement;
-  console.log('target: ', target.className);
   if (target.className === 'fa-solid fa-pencil') {
     viewSwap('entry-form');
     $formFieldTitle.textContent = 'Edit Entry';
     const $closestLi = target.closest('[data-entry-id]') as HTMLLIElement;
-    console.log($closestLi);
     if (!$closestLi) {
       throw new Error('$closestLi is null');
     }
-    console.log($closestLi.dataset);
     const entryId = Number($closestLi.dataset.entryId);
-    console.log(entryId);
     data.editing = findEntry(entryId);
-    console.log('edit: ', data.editing);
     if (data.editing) {
       prePopulate(data.editing);
     }
   }
+});
+
+const $deleteCancel = document.querySelector('#delete-cancel');
+
+const $deleteConfirm = document.querySelector('#delete-confirm');
+
+$deleteButton.addEventListener('click', () => {
+  $dialog?.showModal();
+});
+
+$deleteCancel?.addEventListener('click', () => {
+  if ($dialog != null) {
+    $dialog.close();
+  }
+});
+
+$deleteConfirm?.addEventListener('click', () => {
+  if (data.editing === null) {
+    return null;
+  } else {
+    const toDelete = data.editing;
+    const entryMatch = toDelete.entryID;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryID === entryMatch) {
+        data.entries.splice(i, 1);
+        writeData();
+        break;
+      }
+    }
+    const liMatch = $entriesList.getElementsByTagName('li');
+    for (let i = 0; i < liMatch.length; i++) {
+      if (liMatch[i].id === entryMatch.toString()) {
+        liMatch[i].remove();
+        break;
+      }
+    }
+  }
+  const $formElements = $entryForm.elements as FormElements;
+  $formElements.title.value = '';
+  $formElements.url.value = '';
+  $formElements.notes.value = '';
+  toggleNoEntries();
+  $dialog?.close();
+  viewSwap('entries');
 });
