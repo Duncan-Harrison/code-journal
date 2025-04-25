@@ -47,6 +47,11 @@ button {
   border-radius: 5%;
 }
 
+dialog::backdrop {
+  background-color: rgb(134, 129, 129);
+  opacity: 0.5;
+}
+
 .header-container {
   display: flex;
   justify-content: flex-start;
@@ -146,7 +151,7 @@ button {
 }
 
 #delete-cancel {
-  color: default;
+  color: black;
   background-color: lightgray;
 }
 

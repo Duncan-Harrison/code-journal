@@ -146,6 +146,7 @@ $entriesTab.addEventListener('click', (event) => {
     $formElements.title.value = '';
     $formElements.url.value = '';
     $formElements.notes.value = '';
+    data.editing = null;
     viewSwap('entries');
   }
 });
@@ -223,6 +224,7 @@ $deleteConfirm?.addEventListener('click', () => {
   $formElements.title.value = '';
   $formElements.url.value = '';
   $formElements.notes.value = '';
+  data.editing = null;
   toggleNoEntries();
   $dialog?.close();
   viewSwap('entries');
