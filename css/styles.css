@@ -44,6 +44,12 @@ button {
   background-color: purple;
   color: white;
   margin: 10px;
+  border-radius: 5%;
+}
+
+dialog::backdrop {
+  background-color: rgb(134, 129, 129);
+  opacity: 0.5;
 }
 
 .header-container {
@@ -83,7 +89,7 @@ button {
 
 .row.button {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   flex-wrap: wrap;
   max-width: 500px;
 }
@@ -134,4 +140,22 @@ button {
 #no-entry {
   text-align: center;
   margin: 20px;
+}
+
+#form-delete {
+  color: red;
+  text-decoration: underline;
+  background: none;
+  width: 160px;
+  border: none;
+}
+
+#delete-cancel {
+  color: black;
+  background-color: lightgray;
+}
+
+#delete-confirm {
+  color: white;
+  background-color: #e7293f;
 }
